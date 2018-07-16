@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">惠众保险</string>
+    <string name="title_activity_main">手术意外险</string>
+    <string name="description_a">手术医疗意外伤害（含意外、麻醉身故险，伤残保险责任）  10万元</string>
+    <string name="description_a_1">手术医疗意外伤害（含意外、麻醉身故险，伤残保险责任）  5万元</string>
+    <string name="description_b">手术医疗意外伤害（含意外、麻醉身故险，伤残保险责任）  20万元</string>
+    <string name="description_b_1">手术医疗意外伤害（含意外、麻醉身故险，伤残保险责任）  8万元</string>
+    <string name="description_c">手术医疗意外伤害（含意外、麻醉身故险，伤残保险责任）  30万元</string>
+    <string name="title_activity_splash">手术意外险</string>
+    <string name="descri_surgical_accid">被保险人在释义医院住院接受保险单载明的相应等级或类型的择期手术，自进入手术室接受麻醉诱导至该次手术治疗结束期间发生手术意外(包含由麻醉引起的意外)，并至办理完毕出院手续时止因该手术意外导致身故的，保险人按照保险单载明的保险金额给付手术意外身故保险金，对该被保险人的保险责任终止。</string>
+    <string name="descri_anesthetic_accid">在保险期间内，被保险人在医院接受手术治疗时遭受麻醉意外伤害事故，并自事故发生之日起 180 日内因该事故身故的，保险人按意外伤害保险金额给付身故保险金，对该被保险人的保险责任终止。</string>
+    <string name="descri_disable_liability">被保险人在释义医院住院接受保险单载明的相应等级或类型的择期手术，自进入手术室接受麻醉诱导至该次手术治疗结束期间发生手术意外（包含由麻醉引起的意外），并自该手术意外发生之日起180日内因该事故造成《人身保险伤残评定标准及代码》（标准编号为JR/T0083—2013，以下简称《伤残评定标准》）所列伤残之一的，保险人按该表所列给付比例乘以保险单载明的手术意外身故保险金额给付手术意外伤残保险金。如第180日治疗仍未结束的，按当日的身体情况进行伤残鉴定，并据此给付手术意外伤残保险金。</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="188px"
+    android:background="@drawable/bg_category_item"
+    android:paddingTop="20px"
+    android:paddingBottom="10px"
+    android:layout_height="156px" android:gravity="center">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv"
+        android:src="@mipmap/eight"/>
+    <TextView
+        android:layout_marginTop="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="33px"
+        android:textColor="#333333"
+        android:text="骨科手术"
+        android:textSize="16px"
+        android:id="@+id/tvCategory"/>
+
+</LinearLayout>
