@@ -52,7 +52,8 @@ public class GuideActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GuideActivity.this,
-                        DepartsActivity.class);
+//                        DepartsActivity.class);
+                        FActivity.class);
                 startActivity(intent);
                 GuideActivity.this.finish();
             }

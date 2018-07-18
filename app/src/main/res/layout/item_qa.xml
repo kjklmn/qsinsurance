@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical|left">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_q"
+        android:textSize="18sp"
+        android:textColor="#fb6000"
+        android:text="Q：手术风险如何产生？"/>
+    <TextView
+        android:layout_marginTop="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#a7a7a7"
+        android:text="A：手术指医生用医疗器械对病人身体进行的切除、缝合等治疗。 以刀、剪、针等器械在人体局部进行的操作，来维持患者的健康。手术时会对手术部位的正常组织造成一定的损伤，术中会出现手术风险、麻醉风险，术后会出现手术并发症等风险。"
+        android:textSize="14sp"
+        android:id="@+id/tv_a"/>
+
+</LinearLayout>

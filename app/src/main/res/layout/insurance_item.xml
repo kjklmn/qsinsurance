@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="1024px"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -25,7 +25,7 @@
             android:src="@mipmap/is" />
 
         <LinearLayout
-            android:layout_width="750px"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="34px"
             android:orientation="vertical">
@@ -208,7 +208,10 @@
                             android:textSize="16px" />
                     </LinearLayout>
                 </LinearLayout>
-
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent" />
                 <LinearLayout
                     android:layout_width="232px"
                     android:layout_height="match_parent"
@@ -356,7 +359,7 @@
         android:background="@color/bg_line" />
 
     <LinearLayout
-        android:layout_width="1024px"
+        android:layout_width="match_parent"
         android:layout_height="420px"
         android:orientation="vertical">
 
@@ -391,7 +394,8 @@
                 android:background="@color/line_color" />
 
             <LinearLayout
-                android:layout_width="980px"
+                android:layout_width="0px"
+                android:layout_weight="1"
                 android:layout_height="336px"
                 android:orientation="vertical">
 

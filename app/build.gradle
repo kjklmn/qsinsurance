@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "27.0.1"
     defaultConfig {
-        applicationId "com.huizhong.hzinsurance"
+        applicationId "com.huizhong.hzinsurance_ts"
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1

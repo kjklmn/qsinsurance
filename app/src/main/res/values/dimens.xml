@@ -8,5 +8,5 @@
     <dimen name="text_size_h">33px</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="line_thickness">1px</dimen>
-
+    <dimen name="corner_bg_danmu">12dp</dimen>
 </resources>
