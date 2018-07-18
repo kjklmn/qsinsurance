@@ -33,7 +33,7 @@
             <!--</intent-filter>-->
         </activity>
         <activity
-            android:name=".ui.activity.EasyInsurance"
+            android:name=".ui.activity.EasyInsuranceActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -55,6 +55,23 @@
             </intent-filter>
         </receiver>
         <activity android:name="com.bdhs.hzinsurance.ui.activity.GuideActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/StartTheme">
+        </activity>
+        <activity
+            android:name=".ui.activity.UserEvaluateActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,16 +80,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.activity.SplashActivity"
-            android:label="@string/title_activity_splash"
-            android:theme="@style/StartTheme">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
     </application>
 
 </manifest>

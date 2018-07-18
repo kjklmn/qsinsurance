@@ -33,6 +33,40 @@
                 android:layout_height="2dp"
                 android:background="@drawable/bg_line_right"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="好评率："/>
+            <TextView
+                android:id="@+id/tv_goodrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:text="99%"/>
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论数："/>
+            <TextView
+                android:id="@+id/tv_evaluate_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:text="11条"/>
+        </LinearLayout>
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/bg_line" />
     <LinearLayout
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"

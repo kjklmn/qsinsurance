@@ -6,32 +6,65 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bdhs.hzinsurance.R;
 import com.bdhs.hzinsurance.config.DebugConfig;
+import com.bdhs.hzinsurance.entity.EvaluateEntity;
+import com.bdhs.hzinsurance.ui.view.RoundImageView;
+import com.bumptech.glide.Glide;
 
-public class QAActivity extends AppCompatActivity {
+public class UserEvaluateActivity extends AppCompatActivity {
     private static final String TAG = "DepartsActivity";
     LinearLayout llRoot;
+    TextView tvGoodRate,tvEvaluateNum;
+    LayoutInflater inflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_qa);
+        setContentView(R.layout.activity_user_evaluate);
+//        setContentView(R.layout.item_evaluate);
         initView();
-        Display display = getWindowManager().getDefaultDisplay();
-        int heigth = display.getWidth();
-        int width = display.getHeight();
-        Log.w("kejian","height:"+heigth+"; width:"+width);
+//        RoundImageView iv_head_pic = (RoundImageView) findViewById(R.id.iv_head_pic);
+//        Glide.with(UserEvaluateActivity.this)
+//                .load("http://thirdwx.qlogo.cn/mmopen/vi_32/dZdqTEESGtJ8gpGAurg10prnVicN4fOAlictnnvTMGrnw35RuqEn6kKbA6IcEu4pVmZ0MlFeotUiaicevNzvfqZtwA/96")
+//                .error(R.mipmap.man)
+//                .into(iv_head_pic);
+        inflater = LayoutInflater.from(this);
+        View toast_layout = inflater.inflate(R.layout.toast,null);
     }
 
     private void initView() {
+        tvGoodRate = (TextView) findViewById(R.id.tv_goodrate);
+        tvEvaluateNum = (TextView) findViewById(R.id.tv_evaluate_num);
+
+
+
         llRoot = (LinearLayout) findViewById(R.id.ll_root);
         int size = DebugConfig.aList.length;
         for(int i=0;i<size;i++) {
             addLL(llRoot,DebugConfig.qList[i],DebugConfig.aList[i]);
+        }
+    }
+
+    private void addEvaluate(EvaluateEntity evaluateEntity) {
+        if(evaluateEntity != null) {
+            View view = inflater.inflate(R.layout.item_evaluate,null);
+            TextView tvIcon = view.findViewById(R.id.iv_head_pic);
+            TextView tvTel = view.findViewById(R.id.tv_tel);
+            ImageView iv1 = view.findViewById(R.id.iv_1);
+            ImageView iv2 = view.findViewById(R.id.iv_2);
+            ImageView iv3 = view.findViewById(R.id.iv_3);
+            ImageView iv4 = view.findViewById(R.id.iv_4);
+            ImageView iv5 = view.findViewById(R.id.iv_5);
+            TextView tvLevel = view.findViewById(R.id.tv_level);
+            TextView tvDate = view.findViewById(R.id.tv_date);
+            TextView tvContent = view.findViewById(R.id.tv_content);
+            llRoot.addView(view);
         }
     }
 

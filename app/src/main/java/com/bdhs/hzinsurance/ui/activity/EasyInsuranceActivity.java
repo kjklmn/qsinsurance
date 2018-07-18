@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 
 import com.bdhs.hzinsurance.R;
 
-public class EasyInsurance extends AppCompatActivity {
+public class EasyInsuranceActivity extends AppCompatActivity {
     private static final String TAG = "DepartsActivity";
     Intent mIntent;
     @Override

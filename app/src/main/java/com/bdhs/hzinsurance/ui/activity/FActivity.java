@@ -72,7 +72,7 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.iv_qstb:
                 intent = new Intent(FActivity.this,
-                        EasyInsurance.class);
+                        EasyInsuranceActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_lpzy:
