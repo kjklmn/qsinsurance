@@ -1,5 +1,6 @@
 package com.bdhs.hzinsurance.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * 修改时间：2018-07-18 17:48
  * 修改备注：
  */
-public class EvaluateBean {
+public class EvaluateBean implements Serializable{
     public int total;
     public int nice_ratio;
     public List<EvaluateEntity> lists;

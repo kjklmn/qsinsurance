@@ -1,5 +1,7 @@
 package com.bdhs.hzinsurance.entity;
 
+import java.io.Serializable;
+
 /**
  * 项目名称：qsinsurance
  * 类描述：
@@ -9,7 +11,7 @@ package com.bdhs.hzinsurance.entity;
  * 修改时间：2018-07-18 17:42
  * 修改备注：
  */
-public class EvaluateEntity {
+public class EvaluateEntity implements Serializable {
 
     public String CommentID;
     public String UserID;

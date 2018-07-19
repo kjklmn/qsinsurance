@@ -16,10 +16,11 @@ import com.bdhs.hzinsurance.R;
 import com.bdhs.hzinsurance.config.DebugConfig;
 import com.bdhs.hzinsurance.entity.EvaluateEntity;
 import com.bdhs.hzinsurance.ui.view.RoundImageView;
+import com.bdhs.hzinsurance.utils.LogUtils;
 import com.bumptech.glide.Glide;
 
 public class UserEvaluateActivity extends AppCompatActivity {
-    private static final String TAG = "DepartsActivity";
+    private static final String TAG = "UserEvaluateActivity";
     LinearLayout llRoot;
     TextView tvGoodRate,tvEvaluateNum;
     LayoutInflater inflater;
@@ -34,8 +35,8 @@ public class UserEvaluateActivity extends AppCompatActivity {
 //                .load("http://thirdwx.qlogo.cn/mmopen/vi_32/dZdqTEESGtJ8gpGAurg10prnVicN4fOAlictnnvTMGrnw35RuqEn6kKbA6IcEu4pVmZ0MlFeotUiaicevNzvfqZtwA/96")
 //                .error(R.mipmap.man)
 //                .into(iv_head_pic);
-        inflater = LayoutInflater.from(this);
-        View toast_layout = inflater.inflate(R.layout.toast,null);
+//        inflater = LayoutInflater.from(this);
+//        View toast_layout = inflater.inflate(R.layout.toast,null);
     }
 
     private void initView() {
@@ -54,16 +55,68 @@ public class UserEvaluateActivity extends AppCompatActivity {
     private void addEvaluate(EvaluateEntity evaluateEntity) {
         if(evaluateEntity != null) {
             View view = inflater.inflate(R.layout.item_evaluate,null);
-            TextView tvIcon = view.findViewById(R.id.iv_head_pic);
+            RoundImageView ivIcon = view.findViewById(R.id.iv_head_pic);
+            if(evaluateEntity.WeiXinHeadImgUrl != null) {
+                Glide.with(UserEvaluateActivity.this)
+                .load(evaluateEntity.WeiXinHeadImgUrl)
+                .error(R.mipmap.man)
+                .into(ivIcon);
+            } else {
+                ivIcon.setImageResource(R.mipmap.man);
+            }
             TextView tvTel = view.findViewById(R.id.tv_tel);
+            if(evaluateEntity.Mobile != null) {
+                tvTel.setText(evaluateEntity.Mobile);
+            } else {
+                tvTel.setText("");
+            }
+
             ImageView iv1 = view.findViewById(R.id.iv_1);
             ImageView iv2 = view.findViewById(R.id.iv_2);
             ImageView iv3 = view.findViewById(R.id.iv_3);
             ImageView iv4 = view.findViewById(R.id.iv_4);
             ImageView iv5 = view.findViewById(R.id.iv_5);
             TextView tvLevel = view.findViewById(R.id.tv_level);
+            if(evaluateEntity.Star != null) {
+                int numStar = Integer.parseInt(evaluateEntity.Star);
+                LogUtils.w(TAG,"numStar:"+numStar);
+                int i = 0;
+                while(numStar > i) {
+                    i++;
+                    if(i==1) {
+                        iv1.setImageResource(R.mipmap.dark_star);
+                    } else if(i==2) {
+                        iv2.setImageResource(R.mipmap.dark_star);
+                    }else if(i==3) {
+                        iv3.setImageResource(R.mipmap.dark_star);
+                    }else if(i==4) {
+                        iv4.setImageResource(R.mipmap.dark_star);
+                    }else if(i==5) {
+                        iv5.setImageResource(R.mipmap.dark_star);
+                    }
+                }
+                if(numStar == 3) {
+                    tvLevel.setText("好");
+                }else if(numStar == 4) {
+                    tvLevel.setText("很好");
+                } else if(numStar == 5) {
+                    tvLevel.setText("非常好");
+                }
+            } else {
+                tvLevel.setText("");
+            }
             TextView tvDate = view.findViewById(R.id.tv_date);
+            if(evaluateEntity.CreateTime != null) {
+                tvDate.setText(evaluateEntity.CreateTime);
+            } else {
+                tvDate.setText("");
+            }
             TextView tvContent = view.findViewById(R.id.tv_content);
+            if(evaluateEntity.Content != null) {
+                tvContent.setText(evaluateEntity.CreateTime);
+            } else {
+                tvContent.setText("");
+            }
             llRoot.addView(view);
         }
     }
