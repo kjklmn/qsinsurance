@@ -43,6 +43,7 @@ public class BoneActivity extends BaseActivity {
         inflater = LayoutInflater.from(this);
         addEvaluate();
         addQA();
+        DebugConfig.getDeviceId();
     }
 
     private void addLL(int departs) {

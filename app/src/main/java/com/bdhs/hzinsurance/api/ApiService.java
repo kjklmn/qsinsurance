@@ -21,7 +21,7 @@ public interface ApiService {
     //http://is.snssdk.com/2/article/information/v21/ 详情
 
 
-    @GET("/app/login/getMobileCode")
+    @GET("//index/get_comment/")
     Observable<EvaluateBean> getEvaluate(@Query("mobile") String phoneNum);
 
     //检查更新

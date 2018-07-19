@@ -1,8 +1,17 @@
 package com.bdhs.hzinsurance.config;
 
+import com.bdhs.hzinsurance.application.MainApplication;
+import com.bdhs.hzinsurance.utils.LogUtils;
+
 public class DebugConfig {
     public static boolean DEBUG = true;
 
+
+    public static String getDeviceId() {
+        String device_id = android.provider.Settings.Secure.getString(MainApplication.getInstance().getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+		LogUtils.w("device_id","ANDROID_ID = "+device_id);
+        return device_id;
+    }
     public static String[] qList = {
             "Q：手术风险如何产生？",
             "Q：什么是手术意外保险？",
