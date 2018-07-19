@@ -10,23 +10,31 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bdhs.hzinsurance.R;
+import com.bdhs.hzinsurance.api.presenters.evaluate.EvaluatePresenter;
+import com.bdhs.hzinsurance.api.presenters.evaluate.IEvaluateView;
 import com.bdhs.hzinsurance.api.presenters.updateapp.CheckVersionEntity;
 import com.bdhs.hzinsurance.api.presenters.updateapp.IUpdateView;
 import com.bdhs.hzinsurance.api.presenters.updateapp.UpdatePresenter;
+import com.bdhs.hzinsurance.application.MainApplication;
+import com.bdhs.hzinsurance.entity.EvaluateBean;
+import com.bdhs.hzinsurance.entity.EvaluateEntity;
 import com.bdhs.hzinsurance.updateapp.DeviceUtils;
 import com.bdhs.hzinsurance.updateapp.UpdateManager;
 import com.bdhs.hzinsurance.utils.CJYMHandler;
 import com.bdhs.hzinsurance.utils.LogUtils;
+import com.bdhs.hzinsurance.utils.StringUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-public class FActivity extends AppCompatActivity implements View.OnClickListener,IUpdateView {
+public class FActivity extends AppCompatActivity implements View.OnClickListener,IUpdateView,IEvaluateView {
     private static final String TAG = "DepartsActivity";
     ImageView ivPW,ivGK,ivJR,ivGD;
     ImageView ivQSTB,ivLPZY,ivQA;
-    UpdatePresenter updatePresenter;
+    private UpdatePresenter updatePresenter;
+    private EvaluatePresenter evaluatePresenter;
+    private EvaluateBean evaluateBean;
     private UpdateManager mUpdateManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,7 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.layout_fpage_activity);
         initView();
         updatePresenter = new UpdatePresenter(this);
+        evaluatePresenter = new EvaluatePresenter(this);
     }
 
     private void initView() {
@@ -64,8 +73,40 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
     }
 
     @Override
-    public void onGetEvaluateSucc(CheckVersionEntity response) {
+    public void onGetNewVersion(CheckVersionEntity checkVersionEntity) {
+        if (checkVersionEntity != null) {
+            if (checkVersionEntity.error_code == 0) {
+                LogUtils.w(TAG, "down load url = " + checkVersionEntity.data);
+                if(mUpdateManager == null) {
+                    mUpdateManager = new UpdateManager(FActivity.this);
+                }
+                mUpdateManager .showNoticeDialog(checkVersionEntity.data.desc, checkVersionEntity.data.baseUrl+checkVersionEntity.data.name);
+            } else {
+                Toast.makeText(FActivity.this, "检查更新失败，错误码 = " + checkVersionEntity.error_code + ";" + checkVersionEntity.error,Toast.LENGTH_LONG).show();
+                LogUtils.e(TAG, "checkVersionEntity.error_code = " + checkVersionEntity.error_code + "; " + checkVersionEntity.error);
+            }
+        } else {
+            Toast.makeText(FActivity.this, "检查更新失败",Toast.LENGTH_LONG).show();
+            LogUtils.e(TAG, "checkVersionEntity is null");
+        }
+    }
 
+    @Override
+    public void onGetEvaluateSucc(EvaluateBean response) {
+        MainApplication.getInstance().setEvaluateBean(response);
+        if(response != null) {
+            LogUtils.i(TAG,"response:"+response.toString());
+            if (response.lists != null) {
+                int size = response.lists.size();
+                for(int k=0;k<size;k++) {
+                    EvaluateEntity evaluateEntity = response.lists.get(k);
+                    LogUtils.i(TAG,"evaluateEntity:"+evaluateEntity.toString());
+//                    addEvaluate(evaluateEntity);
+                }
+            }
+        } else {
+            LogUtils.i(TAG,"response is null");
+        }
     }
 
     @Override

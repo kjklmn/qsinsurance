@@ -42,7 +42,7 @@ public class UserEvaluateActivity extends AppCompatActivity implements IEvaluate
 //                .load("http://thirdwx.qlogo.cn/mmopen/vi_32/dZdqTEESGtJ8gpGAurg10prnVicN4fOAlictnnvTMGrnw35RuqEn6kKbA6IcEu4pVmZ0MlFeotUiaicevNzvfqZtwA/96")
 //                .error(R.mipmap.man)
 //                .into(iv_head_pic);
-//        inflater = LayoutInflater.from(this);
+        inflater = LayoutInflater.from(this);
 //        View toast_layout = inflater.inflate(R.layout.toast,null);
         evaluatePresenter = new EvaluatePresenter(this);
         permissionCheck();

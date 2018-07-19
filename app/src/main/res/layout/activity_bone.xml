@@ -27,10 +27,173 @@
         android:orientation="vertical"
         tools:context="com.bdhs.hzinsurance.ui.activity.BoneActivity">
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+        <LinearLayout
             android:id="@+id/llayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+        </LinearLayout>
+        <!--add evaluate-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10px"
+            android:background="@color/bg_line" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="2dp"
+                    android:background="@drawable/bg_line_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="用户评论"
+                    android:textColor="#333333"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="2dp"
+                    android:background="@drawable/bg_line_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="好评率：" />
+
+                <TextView
+                    android:id="@+id/tv_goodrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="评论数：" />
+
+                <TextView
+                    android:id="@+id/tv_evaluate_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginTop="10dp"
+                android:background="@color/bg_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_root_evaluate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginTop="10dp"
+                android:background="@color/bg_line" />
+            <TextView
+                android:id="@+id/tv_all_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="查看全部评论"
+                android:textColor="#666666"
+                android:textSize="18sp"
+                android:drawablePadding="4dp"
+                android:drawableRight="@mipmap/r_arrow"/>
+
+        </LinearLayout>
+        <!--add evaluate end-->
+
+        <!--add QA-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10px"
+            android:background="@color/bg_line" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="2dp"
+                    android:background="@drawable/bg_line_left" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="常见问题"
+                    android:textColor="#333333"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="2dp"
+                    android:background="@drawable/bg_line_right" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_root_qa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+        <!--add QA end -->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

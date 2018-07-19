@@ -1,8 +1,6 @@
 package com.bdhs.hzinsurance.api.presenters.updateapp;
 
 import com.bdhs.hzinsurance.api.presenters.BasePresenter;
-import com.bdhs.hzinsurance.api.presenters.evaluate.IEvaluateView;
-import com.bdhs.hzinsurance.entity.EvaluateBean;
 import com.bdhs.hzinsurance.utils.LogUtils;
 
 import java.util.HashMap;
@@ -34,7 +32,7 @@ public class UpdatePresenter extends BasePresenter<IUpdateView> {
             @Override
             public void onNext(CheckVersionEntity response) {
                 LogUtils.e("kejian",response.toString());
-                mView.onGetEvaluateSucc(response);
+                mView.onGetNewVersion(response);
             }
         });
     }

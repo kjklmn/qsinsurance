@@ -8,7 +8,7 @@ import com.bdhs.hzinsurance.entity.EvaluateBean;
 
 public interface IUpdateView {
 
-    void onGetEvaluateSucc(CheckVersionEntity response);
+    void onGetNewVersion(CheckVersionEntity response);
 
     void  onError(Throwable e);
 }

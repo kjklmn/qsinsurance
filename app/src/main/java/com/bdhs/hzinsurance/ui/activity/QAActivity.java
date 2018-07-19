@@ -21,10 +21,10 @@ public class QAActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_qa);
         initView();
-        Display display = getWindowManager().getDefaultDisplay();
-        int heigth = display.getWidth();
-        int width = display.getHeight();
-        Log.w("kejian","height:"+heigth+"; width:"+width);
+//        Display display = getWindowManager().getDefaultDisplay();
+//        int heigth = display.getWidth();
+//        int width = display.getHeight();
+//        Log.w("kejian","height:"+heigth+"; width:"+width);
     }
 
     private void initView() {
