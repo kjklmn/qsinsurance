@@ -16,4 +16,13 @@ public class EvaluateBean implements Serializable{
     public int total;
     public int nice_ratio;
     public List<EvaluateEntity> lists;
+
+    @Override
+    public String toString() {
+        return "EvaluateBean{" +
+                "total=" + total +
+                ", nice_ratio=" + nice_ratio +
+                ", lists=" + lists +
+                '}';
+    }
 }

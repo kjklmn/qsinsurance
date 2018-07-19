@@ -23,4 +23,20 @@ public class EvaluateEntity implements Serializable {
     public String CreateTime;
     public String Mobile;
     public String WeiXinHeadImgUrl;
+
+    @Override
+    public String toString() {
+        return "EvaluateEntity{" +
+                "CommentID='" + CommentID + '\'' +
+                ", UserID='" + UserID + '\'' +
+                ", PolicyID='" + PolicyID + '\'' +
+                ", ProductID='" + ProductID + '\'' +
+                ", Star='" + Star + '\'' +
+                ", Content='" + Content + '\'' +
+                ", Reply='" + Reply + '\'' +
+                ", CreateTime='" + CreateTime + '\'' +
+                ", Mobile='" + Mobile + '\'' +
+                ", WeiXinHeadImgUrl='" + WeiXinHeadImgUrl + '\'' +
+                '}';
+    }
 }

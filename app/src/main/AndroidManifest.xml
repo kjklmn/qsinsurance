@@ -3,8 +3,12 @@
     package="com.bdhs.hzinsurance">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".application.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +18,10 @@
         <activity
             android:name=".ui.activity.BoneActivity"
             android:screenOrientation="landscape"
-            ></activity>
+            >
+
+        </activity>
+        <service android:name="com.bdhs.hzinsurance.updateapp.DownLoadService"></service>
         <activity
             android:name=".ui.activity.DepartsActivity"
             android:label="@string/title_activity_main"
@@ -55,12 +62,12 @@
             </intent-filter>
         </receiver>
         <activity android:name="com.bdhs.hzinsurance.ui.activity.GuideActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -72,12 +79,7 @@
             android:name=".ui.activity.UserEvaluateActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>
