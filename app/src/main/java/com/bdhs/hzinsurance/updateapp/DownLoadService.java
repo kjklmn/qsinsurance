@@ -45,12 +45,12 @@ public class DownLoadService extends Service {
      * 目标文件存储的文件夹路径
      */
     private String destFileDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File
-            .separator + "CJYM_APK";
+            .separator + "huizhong_APK";
 
     /**
      * 目标文件存储的文件名
      */
-    private String destFileName = "CJYM.apk";
+    private String destFileName = "qsinsurance.apk";
 
     private Context mContext;
     private int preProgress = 0;
@@ -178,7 +178,7 @@ public class DownLoadService extends Service {
         builder = new NotificationCompat.Builder(mContext)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentText("0%")
-                .setContentTitle("云妈宝更新")
+                .setContentTitle("惠众保险更新")
                 .setProgress(100, 0, false);
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFY_ID, builder.build());

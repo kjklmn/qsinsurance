@@ -3,6 +3,7 @@ package com.bdhs.hzinsurance.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import com.android.volley.toolbox.Volley;
 import com.bdhs.hzinsurance.R;
 import com.bdhs.hzinsurance.api.presenters.evaluate.EvaluatePresenter;
 import com.bdhs.hzinsurance.api.presenters.evaluate.IEvaluateView;
-import com.bdhs.hzinsurance.application.MainApplication;
 import com.bdhs.hzinsurance.config.DebugConfig;
 import com.bdhs.hzinsurance.config.InsuranceCategory;
 import com.bdhs.hzinsurance.entity.EvaluateBean;
@@ -70,7 +70,8 @@ public class BoneActivity extends BaseActivity implements IEvaluateView {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jResponse) {
-                        Log.d("TAG", jResponse.toString());
+                        Log.d(TAG, "是否主线程："+(Looper.getMainLooper() == Looper.myLooper()?"true":"false"));
+                        Log.d(TAG, jResponse.toString());
                         Gson gs = new Gson();
                         EvaluateBean response = gs.fromJson(jResponse.toString(),EvaluateBean.class);
                         if(response != null) {

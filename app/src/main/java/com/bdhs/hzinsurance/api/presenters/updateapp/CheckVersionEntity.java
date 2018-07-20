@@ -14,4 +14,14 @@ public class CheckVersionEntity {
     public String error;
     public CheckVersionBean data;
     public String member_id;
+
+    @Override
+    public String toString() {
+        return "CheckVersionEntity{" +
+                "error_code=" + error_code +
+                ", error='" + error + '\'' +
+                ", data=" + data.toString() +
+                ", member_id='" + member_id + '\'' +
+                '}';
+    }
 }

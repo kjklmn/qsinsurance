@@ -13,4 +13,13 @@ public class CheckVersionBean {
     public String baseUrl;
     public String name;
     public String desc;
+
+    @Override
+    public String toString() {
+        return "CheckVersionBean{" +
+                "baseUrl='" + baseUrl + '\'' +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
 }

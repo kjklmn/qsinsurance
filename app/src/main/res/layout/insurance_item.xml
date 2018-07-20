@@ -528,6 +528,7 @@
         android:layout_height="10px"
         android:background="@color/bg_line" />
     <LinearLayout
+        android:background="#ffffff"
         android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -553,10 +554,12 @@
             android:background="@drawable/bg_line_right"/>
     </LinearLayout>
     <ImageView
-        android:layout_marginTop="12dp"
+        android:background="#ffffff"
+        android:paddingLeft="120dp"
+        android:paddingRight="120dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="center"
+        android:scaleType=""
         android:src="@mipmap/product_feature"/>
     <View
         android:layout_width="match_parent"

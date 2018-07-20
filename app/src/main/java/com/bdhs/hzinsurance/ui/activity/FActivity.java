@@ -2,6 +2,7 @@ package com.bdhs.hzinsurance.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.bdhs.hzinsurance.api.presenters.updateapp.CheckVersionEntity;
 import com.bdhs.hzinsurance.api.presenters.updateapp.IUpdateView;
 import com.bdhs.hzinsurance.api.presenters.updateapp.UpdatePresenter;
 import com.bdhs.hzinsurance.application.MainApplication;
+import com.bdhs.hzinsurance.config.InsuranceCategory;
 import com.bdhs.hzinsurance.entity.EvaluateBean;
 import com.bdhs.hzinsurance.entity.EvaluateEntity;
 import com.bdhs.hzinsurance.updateapp.DeviceUtils;
@@ -29,6 +31,7 @@ import com.bdhs.hzinsurance.updateapp.UpdateManager;
 import com.bdhs.hzinsurance.utils.CJYMHandler;
 import com.bdhs.hzinsurance.utils.LogUtils;
 import com.bdhs.hzinsurance.utils.StringUtils;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -44,12 +47,15 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
     private EvaluatePresenter evaluatePresenter;
     private EvaluateBean evaluateBean;
     private UpdateManager mUpdateManager;
+    RequestQueue mQueue;
+    String updateUrl = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_fpage_activity);
         initView();
         updatePresenter = new UpdatePresenter(this);
+        mQueue = Volley.newRequestQueue(FActivity.this);
     }
 
     private void initView() {
@@ -74,10 +80,44 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("edition_name", DeviceUtils.getVersionCode(FActivity.this));
-        updatePresenter.getNewVersion(params);
+        updateUrl = "http://www3.szhuizhong.cn/index/get_comment/"+ DeviceUtils.getVersionCode(this);
+        LogUtils.i(TAG,"evaluateUrl:"+updateUrl);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(updateUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jResponse) {
+                        Log.d(TAG, "是否主线程："+(Looper.getMainLooper() == Looper.myLooper()?"true":"false"));
+                        Log.d(TAG, jResponse.toString());
+                        Gson gs = new Gson();
+                        CheckVersionEntity response = gs.fromJson(jResponse.toString(),CheckVersionEntity.class);
+                        Log.d(TAG, response.toString());
+                        if(response != null) {
+                            if(response.error_code == 0) {
+                                if(mUpdateManager == null) {
+                                    mUpdateManager = new UpdateManager(FActivity.this);
+                                }
+                                LogUtils.w(TAG,"新版本的URL为："+response.data.baseUrl+response.data.name);
+                                mUpdateManager .showNoticeDialog(response.data.desc, response.data.baseUrl+response.data.name);
+                            } else {
+                                Toast.makeText(FActivity.this, "检查更新失败，错误码 = " + response.error_code + ";" + response.error,Toast.LENGTH_LONG).show();
+                                LogUtils.e(TAG, "checkVersionEntity.error_code = " + response.error_code + "; " + response.error);
+                            }
+                        } else {
+                            LogUtils.i(TAG,"response is null");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+                Toast.makeText(FActivity.this, "检查更新失败",Toast.LENGTH_LONG).show();
+                LogUtils.e(TAG, "checkVersionEntity is null");
+            }
+        });
+        mQueue.add(jsonObjectRequest);
+//        HashMap<String, Object> params = new HashMap<String, Object>();
+//        params.put("edition_name", DeviceUtils.getVersionCode(FActivity.this));
+//        updatePresenter.getNewVersion(params);
     }
 
     @Override
