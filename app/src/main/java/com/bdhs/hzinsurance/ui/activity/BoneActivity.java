@@ -3,6 +3,7 @@ package com.bdhs.hzinsurance.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bdhs.hzinsurance.R;
+import com.bdhs.hzinsurance.api.presenters.evaluate.EvaluatePresenter;
+import com.bdhs.hzinsurance.api.presenters.evaluate.IEvaluateView;
 import com.bdhs.hzinsurance.application.MainApplication;
 import com.bdhs.hzinsurance.config.DebugConfig;
 import com.bdhs.hzinsurance.config.InsuranceCategory;
@@ -20,9 +28,12 @@ import com.bdhs.hzinsurance.ui.view.BoneitemView;
 import com.bdhs.hzinsurance.ui.view.RoundImageView;
 import com.bdhs.hzinsurance.utils.LogUtils;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 
-public class BoneActivity extends BaseActivity {
+public class BoneActivity extends BaseActivity implements IEvaluateView {
     private static final String TAG = "BoneActivity";
     private int departs = -1;
 
@@ -30,6 +41,9 @@ public class BoneActivity extends BaseActivity {
     LayoutInflater inflater;
     LinearLayout llRootEva;
     LinearLayout llRootQA;
+    private EvaluatePresenter evaluatePresenter;
+    RequestQueue mQueue;
+    String evaluateUrl = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +55,51 @@ public class BoneActivity extends BaseActivity {
             LogUtils.e(TAG,"departs = "+departs+";部门序号不存在");
         }
         inflater = LayoutInflater.from(this);
-        addEvaluate();
         addQA();
         DebugConfig.getDeviceId();
+//        evaluatePresenter = new EvaluatePresenter(this);
+        mQueue = Volley.newRequestQueue(BoneActivity.this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        evaluateUrl = "http://www3.szhuizhong.cn/index/get_comment/"+InsuranceCategory.Depart.getProductId(departs);
+        LogUtils.i(TAG,"evaluateUrl:"+evaluateUrl);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(evaluateUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jResponse) {
+                        Log.d("TAG", jResponse.toString());
+                        Gson gs = new Gson();
+                        EvaluateBean response = gs.fromJson(jResponse.toString(),EvaluateBean.class);
+                        if(response != null) {
+                            LogUtils.i(TAG,"response:"+response.toString());
+                            addEvaluate(response);
+                        } else {
+                            LogUtils.i(TAG,"response is null");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+            }
+        });
+        mQueue.add(jsonObjectRequest);
+        TextView tvAllEvaluate = (TextView) findViewById(R.id.tv_all_evaluate);
+        tvAllEvaluate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BoneActivity.this,UserEvaluateActivity.class);
+                intent.putExtra("url",evaluateUrl);
+                startActivity(intent);
+            }
+        });
+        //evaluatePresenter.getEvaluate("1000003800");
+    }
+
+    //添加二维码那行信息
     private void addLL(int departs) {
         int[] temp = InsuranceCategory.Depart.getLevels(departs);
         if(temp != null && temp.length > 0) {
@@ -61,13 +115,12 @@ public class BoneActivity extends BaseActivity {
             LogUtils.e(TAG,"获取到的为空");
         }
     }
-
-    private void addEvaluate() {
+    //添加评价
+    private void addEvaluate(EvaluateBean response) {
         llRootEva = (LinearLayout) findViewById(R.id.ll_root_evaluate);
         TextView tvGoodRate = (TextView) findViewById(R.id.tv_goodrate);
         TextView tvEvaluateNum = (TextView) findViewById(R.id.tv_evaluate_num);
-        if(MainApplication.getInstance().getEvaluateBean() != null) {
-            EvaluateBean response = MainApplication.getInstance().getEvaluateBean();
+        if(response != null) {
             LogUtils.i(TAG,"response:"+response.toString());
             if(response.nice_ratio>0) {
                 tvGoodRate.setText(response.nice_ratio+"%");
@@ -86,13 +139,7 @@ public class BoneActivity extends BaseActivity {
         } else {
             LogUtils.i(TAG,"response is null");
         }
-        TextView tvAllEvaluate = (TextView) findViewById(R.id.tv_all_evaluate);
-        tvAllEvaluate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BoneActivity.this,UserEvaluateActivity.class));
-            }
-        });
+
     }
     private void addEvaluateItem(EvaluateEntity evaluateEntity) {
         if(evaluateEntity != null) {
@@ -163,6 +210,7 @@ public class BoneActivity extends BaseActivity {
         }
     }
 
+    //添加问答
     private void addQA() {
         llRootQA = (LinearLayout) findViewById(R.id.ll_root_qa);
         int size = DebugConfig.aList.length;
@@ -202,5 +250,15 @@ public class BoneActivity extends BaseActivity {
         tv3.setGravity(Gravity.LEFT);
         layout2.addView(tv3);
         root.addView(layout2);
+    }
+
+    @Override
+    public void onGetEvaluateSucc(EvaluateBean response) {
+
+    }
+
+    @Override
+    public void onError(Throwable e) {
+
     }
 }

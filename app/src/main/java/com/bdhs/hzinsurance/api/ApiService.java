@@ -6,7 +6,11 @@ import com.bdhs.hzinsurance.entity.EvaluateBean;
 
 import java.util.Map;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -20,9 +24,9 @@ public interface ApiService {
     //http://is.snssdk.com/article/v2/tab_comments/?group_id=6436886053704958466&item_id=6436886053704958466&offset=30&count=20 评论
     //http://is.snssdk.com/2/article/information/v21/ 详情
 
-
-    @GET("//index/get_comment/")
-    Observable<EvaluateBean> getEvaluate(@Query("mobile") String phoneNum);
+    @FormUrlEncoded
+    @POST("/index/get_comment/{productId}")
+    Observable<EvaluateBean> getEvaluate(@Field("productId") String productId);
 
     //检查更新
     @GET("index.php/app/Pag/new/")

@@ -4,11 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bdhs.hzinsurance.R;
 import com.bdhs.hzinsurance.api.presenters.evaluate.EvaluatePresenter;
 import com.bdhs.hzinsurance.api.presenters.evaluate.IEvaluateView;
@@ -24,11 +30,13 @@ import com.bdhs.hzinsurance.utils.CJYMHandler;
 import com.bdhs.hzinsurance.utils.LogUtils;
 import com.bdhs.hzinsurance.utils.StringUtils;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-public class FActivity extends AppCompatActivity implements View.OnClickListener,IUpdateView,IEvaluateView {
+public class FActivity extends AppCompatActivity implements View.OnClickListener,IUpdateView {
     private static final String TAG = "DepartsActivity";
     ImageView ivPW,ivGK,ivJR,ivGD;
     ImageView ivQSTB,ivLPZY,ivQA;
@@ -42,7 +50,6 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.layout_fpage_activity);
         initView();
         updatePresenter = new UpdatePresenter(this);
-        evaluatePresenter = new EvaluatePresenter(this);
     }
 
     private void initView() {
@@ -67,6 +74,7 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("edition_name", DeviceUtils.getVersionCode(FActivity.this));
         updatePresenter.getNewVersion(params);
@@ -91,23 +99,7 @@ public class FActivity extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    @Override
-    public void onGetEvaluateSucc(EvaluateBean response) {
-        MainApplication.getInstance().setEvaluateBean(response);
-        if(response != null) {
-            LogUtils.i(TAG,"response:"+response.toString());
-            if (response.lists != null) {
-                int size = response.lists.size();
-                for(int k=0;k<size;k++) {
-                    EvaluateEntity evaluateEntity = response.lists.get(k);
-                    LogUtils.i(TAG,"evaluateEntity:"+evaluateEntity.toString());
-//                    addEvaluate(evaluateEntity);
-                }
-            }
-        } else {
-            LogUtils.i(TAG,"response is null");
-        }
-    }
+
 
     @Override
     public void onError(Throwable e) {

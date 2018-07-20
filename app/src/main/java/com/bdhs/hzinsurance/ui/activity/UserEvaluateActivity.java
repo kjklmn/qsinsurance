@@ -9,12 +9,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bdhs.hzinsurance.R;
 import com.bdhs.hzinsurance.api.presenters.evaluate.EvaluatePresenter;
 import com.bdhs.hzinsurance.api.presenters.evaluate.IEvaluateView;
@@ -23,6 +29,9 @@ import com.bdhs.hzinsurance.entity.EvaluateEntity;
 import com.bdhs.hzinsurance.ui.view.RoundImageView;
 import com.bdhs.hzinsurance.utils.LogUtils;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -32,11 +41,14 @@ public class UserEvaluateActivity extends AppCompatActivity implements IEvaluate
     TextView tvGoodRate,tvEvaluateNum;
     LayoutInflater inflater;
     private EvaluatePresenter evaluatePresenter;
+    private String url;
+    RequestQueue mQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_evaluate);
         initView();
+        url = getIntent().getStringExtra("url");
 //        RoundImageView iv_head_pic = (RoundImageView) findViewById(R.id.iv_head_pic);
 //        Glide.with(UserEvaluateActivity.this)
 //                .load("http://thirdwx.qlogo.cn/mmopen/vi_32/dZdqTEESGtJ8gpGAurg10prnVicN4fOAlictnnvTMGrnw35RuqEn6kKbA6IcEu4pVmZ0MlFeotUiaicevNzvfqZtwA/96")
@@ -46,12 +58,46 @@ public class UserEvaluateActivity extends AppCompatActivity implements IEvaluate
 //        View toast_layout = inflater.inflate(R.layout.toast,null);
         evaluatePresenter = new EvaluatePresenter(this);
         permissionCheck();
+        mQueue = Volley.newRequestQueue(UserEvaluateActivity.this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        evaluatePresenter.getEvaluate("123942837421");
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jResponse) {
+                        Log.d("TAG", jResponse.toString());
+                        Gson gs = new Gson();
+                        EvaluateBean response = gs.fromJson(jResponse.toString(),EvaluateBean.class);
+                        if(response != null) {
+                            LogUtils.i(TAG,"response:"+response.toString());
+                            if(response.nice_ratio>0) {
+                                tvGoodRate.setText(response.nice_ratio+"%");
+                            }
+                            if(response.total>0) {
+                                tvEvaluateNum.setText(response.total+"条");
+                            }
+                            if (response.lists != null) {
+                                int size = response.lists.size();
+                                for(int k=0;k<size;k++) {
+                                    EvaluateEntity evaluateEntity = response.lists.get(k);
+                                    addEvaluate(evaluateEntity);
+                                }
+                            }
+                        } else {
+                            LogUtils.i(TAG,"response is null");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+            }
+        });
+        mQueue.add(jsonObjectRequest);
+//        evaluatePresenter.getEvaluate("123942837421");
     }
 
     @Override
@@ -66,10 +112,6 @@ public class UserEvaluateActivity extends AppCompatActivity implements IEvaluate
         tvGoodRate = (TextView) findViewById(R.id.tv_goodrate);
         tvEvaluateNum = (TextView) findViewById(R.id.tv_evaluate_num);
         llRoot = (LinearLayout) findViewById(R.id.ll_root);
-//        int size = DebugConfig.aList.length;
-//        for(int i=0;i<size;i++) {
-//            addLL(llRoot,DebugConfig.qList[i],DebugConfig.aList[i]);
-//        }
     }
 
 

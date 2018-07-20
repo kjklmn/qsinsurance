@@ -4,6 +4,7 @@ public class InsuranceCategory {
 
     //测试
     public static final String Base_URL = "http://www3.szhuizhong.cn/insure_non_login/insurance_hospital/";
+    public static final String Base_Api_URL = "http://www3.szhuizhong.cn";
 
 //    //生产
 //    public static final String Base_URL = "http://mobile.szhuizhong.cn/insure_non_login/insurance_hospital/";
@@ -54,7 +55,38 @@ public class InsuranceCategory {
             return null;
         }
 
+        public static String getProductId(int departs) {//
+            switch (departs) {
+                case InsuranceCategory.Depart.PUWAI:
+                    return "1000002900";
+                case InsuranceCategory.Depart.BONE:
+                    return "1000002800";
+                case InsuranceCategory.Depart.MINIAO:
+                    return "1000003100";
+                case InsuranceCategory.Depart.GANZANG:
+                    return "1000003200";
+                case InsuranceCategory.Depart.MUYIN:
+                    return "1000003300";
+                case InsuranceCategory.Depart.XINXIONG:
+                    return "1000003400";
+                case InsuranceCategory.Depart.GANGCHANG:
+                    return "1000003600";
+                case InsuranceCategory.Depart.FUKE:
+                    return "1000003800";
+                case InsuranceCategory.Depart.DANDAO:
+                    return "1000003000";
+                case InsuranceCategory.Depart.YANKE:
+                    return "1000003700";
+                case InsuranceCategory.Depart.JIERU:
+                    return "1000003500";
+                default:
+                    break;
+            }
+            return null;
+        }
     }
+
+
 
     //第0 普外手术
     public static class PUWAIDepart {

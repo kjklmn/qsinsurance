@@ -151,7 +151,7 @@ public class ApiRetrofit {
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(InsuranceCategory.Base_URL)
+                .baseUrl(InsuranceCategory.Base_Api_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava
