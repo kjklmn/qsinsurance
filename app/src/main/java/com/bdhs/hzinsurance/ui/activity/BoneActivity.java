@@ -134,7 +134,7 @@ public class BoneActivity extends BaseActivity implements IEvaluateView {
                 for(int k=0;k<size;k++) {
                     EvaluateEntity evaluateEntity = response.lists.get(k);
                     addEvaluateItem(evaluateEntity);
-                    if(k>=3) break;//最多只显示3条
+//                    if(k>=3) break;//最多只显示3条
                 }
             }
         } else {
