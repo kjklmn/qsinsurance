@@ -134,7 +134,7 @@ public class BoneActivity extends BaseActivity implements IEvaluateView {
                 for(int k=0;k<size;k++) {
                     EvaluateEntity evaluateEntity = response.lists.get(k);
                     addEvaluateItem(evaluateEntity);
-//                    if(k>=3) break;//最多只显示3条
+                    if(k>=3) break;//最多只显示3条
                 }
             }
         } else {
@@ -216,7 +216,7 @@ public class BoneActivity extends BaseActivity implements IEvaluateView {
         llRootQA = (LinearLayout) findViewById(R.id.ll_root_qa);
         int size = DebugConfig.aList.length;
         for(int i=0;i<size;i++) {
-            if(i>=4) break;//最多只显示4条
+//            if(i>=4) break;//最多只显示4条
             addQAItem(llRootQA,DebugConfig.qList[i],DebugConfig.aList[i]);
         }
     }

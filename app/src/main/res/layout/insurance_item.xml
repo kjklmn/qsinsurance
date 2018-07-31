@@ -559,7 +559,7 @@
         android:paddingRight="120dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType=""
+        android:scaleType="center"
         android:src="@mipmap/product_feature"/>
     <View
         android:layout_width="match_parent"
